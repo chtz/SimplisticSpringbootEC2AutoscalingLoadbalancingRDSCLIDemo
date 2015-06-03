@@ -19,10 +19,10 @@ Demonstrates what can be done, not that it shall be done this way...
 9.   Check for errors. There should be none. Otherwise, "cleanup the mess" ($/h AWS resources).
 10.  Expect answers from 2 web servers (try multiple times): curl http://$LB_DNS
 11.  curl http://$LB_DNS?cmd=sleep&time=1000
-12.  Wait for up-scaling
+12.  Generate some load (a few HTTP GETs every now and then). Wait for up-scaling
 13.  Expect answers from 3 web servers (try multiple times): curl http://$LB_DNS
 14.  curl http://$LB_DNS?cmd=sleep&time=50
-15.  Wait for 2x down-scaling
+15.  Generate some load (a few HTTP GETs every now and then). Wait for 2x down-scaling
 16.  Expect answers from 1 web server (try multiple times): curl http://$LB_DNS
 17.	 Cleanup the mess _manually_ in the AWS Console (delete $/h AWS RDS, AutoScaling Group, Load Balancer, SGs, Keys, S3,  Bucket, etc.)
 
