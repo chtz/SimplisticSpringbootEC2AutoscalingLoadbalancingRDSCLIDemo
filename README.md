@@ -9,22 +9,22 @@ Demonstrates what can be done, not that it shall be done this way...
 ## Instructions
 
 1.   Understand every single line in ec2/launch_aws_env.sh. 
-     Adjust ec2/launch_aws_env.sh (e.g. choose unique S3 bucket name, ...). 
-     Ensure all dependencies are installed & configured (AWS CLI, AWS access- & secret key, AWS region, jq, ...)
-2.	 Understand ec2/cloudinit.sh. 
-     Adjust ec2/cloudinit.sh (e.g. S3 bucket name)
-3.   mvn clean install
-4.   . ./ec2/launch_aws_env.sh
-5.   Wait for script completion (and browse the Amazon Web Services Console in meanwhile: RDS, EC2, S3, CloudWatch, ...)
-5b.  Check for errors. There should be none. Otherwise, "cleanup the mess" ($/h AWS resources).
-6.   Expect answers from 2 web servers (try multiple times): curl http://$LB_DNS
-7.   curl http://$LB_DNS?cmd=sleep&time=1000
-8.   Wait for up-scaling
-9.   Expect answers from 3 web servers (try multiple times): curl http://$LB_DNS
-10.  curl http://$LB_DNS?cmd=sleep&time=50
-11.  Wait for 2x down-scaling
-12.  Expect answers from 1 web server (try multiple times): curl http://$LB_DNS
-13.	 Cleanup the mess _manually_ in the AWS Console (delete $/h AWS RDS, AutoScaling Group, Load Balancer, SGs, Keys, S3,  Bucket, etc.)
+2.   Adjust ec2/launch_aws_env.sh (e.g. choose unique S3 bucket name, ...). 
+3.   Ensure all dependencies are installed & configured (AWS CLI, AWS access- & secret key, AWS region, jq, ...)
+4.	 Understand ec2/cloudinit.sh. 
+5.   Adjust ec2/cloudinit.sh (e.g. S3 bucket name)
+6.   mvn clean install
+7.   . ./ec2/launch_aws_env.sh
+8.   Wait for script completion (and browse the Amazon Web Services Console in meanwhile: RDS, EC2, S3, CloudWatch, ...)
+9.   Check for errors. There should be none. Otherwise, "cleanup the mess" ($/h AWS resources).
+10.  Expect answers from 2 web servers (try multiple times): curl http://$LB_DNS
+11.  curl http://$LB_DNS?cmd=sleep&time=1000
+12.  Wait for up-scaling
+13.  Expect answers from 3 web servers (try multiple times): curl http://$LB_DNS
+14.  curl http://$LB_DNS?cmd=sleep&time=50
+15.  Wait for 2x down-scaling
+16.  Expect answers from 1 web server (try multiple times): curl http://$LB_DNS
+17.	 Cleanup the mess _manually_ in the AWS Console (delete $/h AWS RDS, AutoScaling Group, Load Balancer, SGs, Keys, S3,  Bucket, etc.)
 
 ## Troubleshooting
 
