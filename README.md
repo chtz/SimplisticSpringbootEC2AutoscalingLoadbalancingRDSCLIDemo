@@ -8,11 +8,11 @@ Demonstrates what can be done, not that it shall be done this way...
 
 ## Instructions
 
-1.   Understand every single line in ec2/launch_aws_env.sh
-1.1. Adjust ec2/launch_aws_env.sh (e.g. choose unique S3 bucket name, ...)
-1.2. Ensure all dependencies are installed & configured (AWS CLI, AWS access- & secret key, AWS region, jq, ...)
-2.	 Understand ec2/cloudinit.sh
-2.1. Adjust ec2/cloudinit.sh (e.g. S3 bucket name)
+1.   Understand every single line in ec2/launch_aws_env.sh. 
+     Adjust ec2/launch_aws_env.sh (e.g. choose unique S3 bucket name, ...). 
+     Ensure all dependencies are installed & configured (AWS CLI, AWS access- & secret key, AWS region, jq, ...)
+2.	 Understand ec2/cloudinit.sh. 
+     Adjust ec2/cloudinit.sh (e.g. S3 bucket name)
 3.   mvn clean install
 4.   . ./ec2/launch_aws_env.sh
 5.   Wait for script completion (and browse the Amazon Web Services Console in meanwhile: RDS, EC2, S3, CloudWatch, ...)
