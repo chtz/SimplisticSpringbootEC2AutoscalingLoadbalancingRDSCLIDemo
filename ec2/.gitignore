@@ -4,3 +4,8 @@ sshkey.pub
 osx_flush_dns.sh
 demo2ec2userkey
 demo2ec2userkey.pub
+demo2ec2userkey2
+demo2ec2userkey2.pub
+launch_aws_env_1_RDS.sh
+launch_aws_env_2_ELB.sh
+launch_aws_env_3_ASG.sh
