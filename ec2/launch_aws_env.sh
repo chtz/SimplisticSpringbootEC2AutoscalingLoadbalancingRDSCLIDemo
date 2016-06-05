@@ -52,7 +52,7 @@ done
 echo Uploading WAR to new S3 Bucket
 # S3 public-read for simplicity - _most likely_ not feasible for production!
 
-export DEPLOY_BUKET_NAME=cascloud2016demodeploy
+export DEPLOY_BUKET_NAME=cascloud2016install
 export DEPLOY_BUCKET_LOCATION=eu-west-1
 
 aws s3api create-bucket --create-bucket-configuration LocationConstraint=$DEPLOY_BUCKET_LOCATION --bucket $DEPLOY_BUKET_NAME
