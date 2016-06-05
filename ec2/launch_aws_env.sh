@@ -52,12 +52,12 @@ done
 echo Uploading WAR to new S3 Bucket
 # S3 public-read for simplicity - _most likely_ not feasible for production!
 
-export DEPLOY_BUKET_NAME=cascloud.2015.demo2.deploy
-export DEPLOY_BUCKET_LOCATION=eu-central-1
+export DEPLOY_BUKET_NAME=cascloud2016demodeploy
+export DEPLOY_BUCKET_LOCATION=eu-west-1
 
 aws s3api create-bucket --create-bucket-configuration LocationConstraint=$DEPLOY_BUCKET_LOCATION --bucket $DEPLOY_BUKET_NAME
 
-export WAR_FILE_LOCAL=../target/demo-web-0.0.1-SNAPSHOT.war
+export WAR_FILE_LOCAL=target/demo-web-0.0.1-SNAPSHOT.war
 export WAR_FILE_BUCKET=application.war
 
 aws s3 cp $WAR_FILE_LOCAL s3://$DEPLOY_BUKET_NAME/$WAR_FILE_BUCKET --acl public-read
@@ -70,12 +70,12 @@ export RSA_KEY_FILE=demo2ec2userkey
 ssh-keygen -N "" -t rsa -b 4096 -f $RSA_KEY_FILE
 aws ec2 import-key-pair --public-key-material file://$RSA_KEY_FILE.pub --key-name $RSA_KEY_NAME
 
-export AMAZON_LINUX_AMI=$(aws ec2 describe-images --owners amazon --filters "Name=description,Values=Amazon Linux AMI 2015.03.0 x86_64 HVM EBS" | jq -r ".Images[0].ImageId")
+export AMAZON_LINUX_AMI=$(aws ec2 describe-images --owners amazon --filters "Name=description,Values=Amazon Linux AMI 2016.03.1 x86_64 HVM EBS" | jq -r ".Images[0].ImageId")
 
 export CLOUD_INIT_FILE=cloudinit.sh
 cat > ./$CLOUD_INIT_FILE <<DELIM
 #!/bin/bash
-wget https://s3.$DEPLOY_BUCKET_LOCATION.amazonaws.com/$DEPLOY_BUKET_NAME/$WAR_FILE_BUCKET
+wget https://s3-$DEPLOY_BUCKET_LOCATION.amazonaws.com/$DEPLOY_BUKET_NAME/$WAR_FILE_BUCKET
 java -jar ./$WAR_FILE_BUCKET --server.port=80 --spring.datasource.url=jdbc:mysql://$DB_HOST:3306/$DB_NAME --spring.datasource.username=$DB_MASTER_USER --spring.datasource.password=$DB_MASTER_PASS &
 DELIM
 
@@ -100,7 +100,7 @@ export LB_DNS=$(aws elb create-load-balancer --load-balancer-name $LB_NAME --sub
                                              | jq -r ".DNSName")
 
 aws elb configure-health-check --load-balancer-name $LB_NAME \
- 		                       --health-check "Target=HTTP:80/,Interval=30,Timeout=5,UnhealthyThreshold=2,HealthyThreshold=2"
+ 		                       --health-check "Target=HTTP:80/,Interval=30,Timeout=5,UnhealthyThreshold=8,HealthyThreshold=2"
 
 aws elb modify-load-balancer-attributes --load-balancer-name $LB_NAME --load-balancer-attributes "{\"CrossZoneLoadBalancing\":{\"Enabled\":true}}"
 

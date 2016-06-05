@@ -2,3 +2,6 @@
 .project
 .settings
 target
+cloudinit.sh
+demo2ec2userkey
+demo2ec2userkey.pub
